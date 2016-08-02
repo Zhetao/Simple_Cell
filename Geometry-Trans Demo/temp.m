@@ -1,15 +1,15 @@
 function out = model
 %
-% labyrinthine3_matlab.m
+% temp.m
 %
-% Model exported on Aug 1 2016, 11:30 by COMSOL 5.2.0.220.
+% Model exported on Aug 2 2016, 12:27 by COMSOL 5.2.0.220.
 
 import com.comsol.model.*
 import com.comsol.model.util.*
 
 model = ModelUtil.create('Model');
 
-model.modelPath('/home/zhetao/Research/Simple_Cell');
+model.modelPath('/home/zhetao/Research/Simple_Cell/Geometry-Trans Demo');
 
 model.label('labyrinthine3_matlab.mph');
 
@@ -102,8 +102,18 @@ model.physics('acpr').feature('pwr1').feature('ipf1').selection.set([1 2 3 5 7 9
 model.physics('acpr').create('ishb1', 'InteriorSoundHard', 1);
 model.physics('acpr').feature('ishb1').selection.set([4 6 8 10 12 14]);
 
-model.mesh('mesh1').autoMeshSize(2);
+model.mesh('mesh1').autoMeshSize(9);
 
+model.view('view1').axis.set('abstractviewxscale', '1.744186010910198E-4');
+model.view('view1').axis.set('ymin', '-0.03244185820221901');
+model.view('view1').axis.set('xmax', '0.05911844223737717');
+model.view('view1').axis.set('abstractviewyscale', '1.7441858653910458E-4');
+model.view('view1').axis.set('abstractviewbratio', '-0.7976743578910828');
+model.view('view1').axis.set('abstractviewtratio', '0.7976743578910828');
+model.view('view1').axis.set('abstractviewrratio', '0.02499997615814209');
+model.view('view1').axis.set('xmin', '-0.05911844223737717');
+model.view('view1').axis.set('abstractviewlratio', '-0.02499997615814209');
+model.view('view1').axis.set('ymax', '0.03244185820221901');
 
 model.material('mat1').label('Air 1');
 model.material('mat1').propertyGroup('def').set('density', '1.25*(1-0.005*i)');
@@ -117,14 +127,78 @@ model.mesh('mesh1').run;
 model.study.create('std1');
 model.study('std1').create('freq', 'Frequency');
 model.study('std1').feature('freq').set('plist', 'range(100,100,4000)');
+model.study('std1').feature('freq').set('showdistribute', false);
 
-% model.result.create('pg1', 2);
-% model.result('pg1').create('surf1', 'Surface');
-% model.result('pg1').feature('surf1').set('expr', 'acpr.p_t');
-% model.result('pg1').label('Acoustic Pressure (acpr)');
-% %model.result('pg1').feature('surf1').set('coloring', 'colortable');
-% %model.result('pg1').feature('surf1').set('color', 'white');
-% model.result('pg1').set('edges', 'on');
-% model.result('pg1').set('frametype', 'geometry');
+model.sol.create('sol1');
+model.sol('sol1').study('std1');
+
+model.study('std1').feature('freq').set('notlistsolnum', 1);
+model.study('std1').feature('freq').set('notsolnum', '1');
+model.study('std1').feature('freq').set('listsolnum', 1);
+model.study('std1').feature('freq').set('solnum', '1');
+
+model.sol('sol1').create('st1', 'StudyStep');
+model.sol('sol1').feature('st1').set('study', 'std1');
+model.sol('sol1').feature('st1').set('studystep', 'freq');
+model.sol('sol1').create('v1', 'Variables');
+model.sol('sol1').feature('v1').set('control', 'freq');
+model.sol('sol1').create('s1', 'Stationary');
+model.sol('sol1').feature('s1').set('stol', 0.001);
+model.sol('sol1').feature('s1').create('p1', 'Parametric');
+model.sol('sol1').feature('s1').feature.remove('pDef');
+model.sol('sol1').feature('s1').feature('p1').set('pname', {'freq'});
+model.sol('sol1').feature('s1').feature('p1').set('plistarr', {'range(100,100,4000)'});
+model.sol('sol1').feature('s1').feature('p1').set('punit', {'Hz'});
+model.sol('sol1').feature('s1').feature('p1').set('pcontinuationmode', 'no');
+model.sol('sol1').feature('s1').feature('p1').set('preusesol', 'auto');
+model.sol('sol1').feature('s1').feature('p1').set('plot', 'off');
+model.sol('sol1').feature('s1').feature('p1').set('plotgroup', 'Default');
+model.sol('sol1').feature('s1').feature('p1').set('probesel', 'all');
+model.sol('sol1').feature('s1').feature('p1').set('probes', {});
+model.sol('sol1').feature('s1').feature('p1').set('control', 'freq');
+model.sol('sol1').feature('s1').set('control', 'freq');
+model.sol('sol1').feature('s1').feature('aDef').set('complexfun', true);
+model.sol('sol1').feature('s1').feature('aDef').set('matherr', true);
+model.sol('sol1').feature('s1').feature('aDef').set('blocksize', 1000);
+model.sol('sol1').feature('s1').feature('aDef').set('blocksizeactive', false);
+model.sol('sol1').feature('s1').create('fc1', 'FullyCoupled');
+model.sol('sol1').feature('s1').feature('fc1').set('linsolver', 'dDef');
+model.sol('sol1').feature('s1').feature.remove('fcDef');
+model.sol('sol1').attach('std1');
+
+model.result.create('pg1', 2);
+model.result('pg1').set('data', 'dset1');
+model.result('pg1').create('surf1', 'Surface');
+model.result('pg1').feature('surf1').set('expr', {'acpr.p_t'});
+model.result('pg1').label('Acoustic Pressure (acpr)');
+model.result.create('pg2', 2);
+model.result('pg2').set('data', 'dset1');
+model.result('pg2').create('surf1', 'Surface');
+model.result('pg2').feature('surf1').set('expr', {'acpr.Lp'});
+model.result('pg2').label('Sound Pressure Level (acpr)');
+
+model.sol('sol1').runAll;
+
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').feature('surf1').set('expr', '0');
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').feature('surf1').set('coloring', 'uniform');
+model.result('pg1').feature('surf1').set('color', 'white');
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').run;
+model.result('pg1').set('edges', 'off');
+model.result('pg1').run;
+model.result('pg1').set('edges', 'on');
+model.result('pg1').set('frametype', 'geometry');
 
 out = model;
