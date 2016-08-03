@@ -22,7 +22,7 @@ function varargout = Demo(varargin)
 
 % Edit the above text to modify the response to help Demo
 
-% Last Modified by GUIDE v2.5 02-Aug-2016 14:45:18
+% Last Modified by GUIDE v2.5 03-Aug-2016 12:02:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -85,12 +85,35 @@ a2 = get(handles.slider2, 'Value');
 a3 = get(handles.slider3, 'Value');
 b1 = get(handles.slider4, 'Value');
 b2 = get(handles.slider5, 'Value');
-b3 = 0.015;
+b3 = get(handles.slider6, 'Value');
 H = 0.025;
-res = Trans(model, a1,a2,a3,b1,b2);
-plot(handles.axes1, linspace(100,4000,40)',res);
+[transList, phaseList] = Trans(model, a1,a2,a3,b1,b2,b3);
+
+axes(handles.axes1);
+plot(linspace(100,4000,40)',transList);
 xlim([0,4000])
-ylim([0, 1])
+ylim([0,1])
+
+axes(handles.axes5);
+plot(linspace(100,4000,40)',wrapTo360(phaseList));
+xlim([0,4000])
+ylim([0,360])
+
+% plot(handles.axes1, linspace(100,4000,40)',transList);
+% 
+% plot(handles.axes5, linspace(100,4000,40)',phaseList);
+
+% yyaxis left
+% xlim([0,4000])
+% ylim([0,1])
+% hold on
+% 
+
+% xlim([0,4000])
+% ylim([-180,180])
+% yyaxis right
+% ylim([0,180])
+
 
 %model.result('pg1').set('data', 'dset1');
 %model.result('pg1').run;
@@ -114,6 +137,7 @@ hold(handles.axes3);
 line(handles.axes3,[b2 b2], [-H/2 -a2+H/2]);
 hold(handles.axes3);
 line(handles.axes3,[b3 b3], [-H/2+a3 H/2]);
+axes(handles.axes3);
 xlim([-0.0175,0.0175])
 ylim([-0.017, 0.017])
 
@@ -132,7 +156,7 @@ function slider1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-x=get(handles.slider1,'Value'); display(x)
+x=get(handles.slider1,'Value'); 
 set(handles.edit1,'String',num2str(x));
 show(hObject, eventdata, handles)
 
@@ -162,7 +186,7 @@ function slider2_Callback(hObject, eventdata, handles)
 % hObject    handle to slider2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x=get(handles.slider2,'Value'); display(x)
+x=get(handles.slider2,'Value'); 
 set(handles.edit2,'String',num2str(x));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
@@ -186,7 +210,7 @@ function slider3_Callback(hObject, eventdata, handles)
 % hObject    handle to slider3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x=get(handles.slider3,'Value'); display(x)
+x=get(handles.slider3,'Value');
 set(handles.edit3,'String',num2str(x));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
@@ -210,7 +234,7 @@ function slider4_Callback(hObject, eventdata, handles)
 % hObject    handle to slider4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x=get(handles.slider4,'Value'); display(x)
+x=get(handles.slider4,'Value');
 set(handles.edit4,'String',num2str(x));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
@@ -234,9 +258,8 @@ function slider5_Callback(hObject, eventdata, handles)
 % hObject    handle to slider5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-x=get(handles.slider5,'Value'); display(x)
+x=get(handles.slider5,'Value'); 
 set(handles.edit5,'String',num2str(x));
-set(handles.edit6, 'String', 'Processing');
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
@@ -278,6 +301,9 @@ function edit1_Callback(hObject, eventdata, handles)
 % hObject    handle to edit1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+x=get(handles.edit1,'String'); 
+set(handles.slider1,'Value',str2num(x));
+show(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit1 as text
 %        str2double(get(hObject,'String')) returns contents of edit1 as a double
@@ -301,7 +327,9 @@ function edit2_Callback(hObject, eventdata, handles)
 % hObject    handle to edit2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+x=get(handles.edit2,'String'); 
+set(handles.slider2,'Value',str2num(x));
+show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit2 as text
 %        str2double(get(hObject,'String')) returns contents of edit2 as a double
 
@@ -324,7 +352,9 @@ function edit3_Callback(hObject, eventdata, handles)
 % hObject    handle to edit3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+x=get(handles.edit3,'String'); 
+set(handles.slider3,'Value',str2num(x));
+show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit3 as text
 %        str2double(get(hObject,'String')) returns contents of edit3 as a double
 
@@ -347,7 +377,9 @@ function edit4_Callback(hObject, eventdata, handles)
 % hObject    handle to edit4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+x=get(handles.edit4,'String'); 
+set(handles.slider4,'Value',str2num(x));
+show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit4 as text
 %        str2double(get(hObject,'String')) returns contents of edit4 as a double
 
@@ -370,7 +402,9 @@ function edit5_Callback(hObject, eventdata, handles)
 % hObject    handle to edit5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+x=get(handles.edit5,'String'); 
+set(handles.slider5,'Value',str2num(x));
+show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit5 as text
 %        str2double(get(hObject,'String')) returns contents of edit5 as a double
 
@@ -393,13 +427,62 @@ function edit6_Callback(hObject, eventdata, handles)
 % hObject    handle to edit6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+x=get(handles.edit6,'String'); 
+set(handles.slider6,'Value',str2num(x));
+show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit6 as text
 %        str2double(get(hObject,'String')) returns contents of edit6 as a double
 
 
 % --- Executes during object creation, after setting all properties.
 function edit6_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to edit6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on slider movement.
+function slider6_Callback(hObject, eventdata, handles)
+% hObject    handle to slider6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+x=get(handles.slider6,'Value'); display(x)
+set(handles.edit6,'String',num2str(x));
+show(hObject, eventdata, handles)
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function slider6_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+
+function edit7_Callback(hObject, eventdata, handles)
+% hObject    handle to edit6 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of edit6 as text
+%        str2double(get(hObject,'String')) returns contents of edit6 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function edit7_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to edit6 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called

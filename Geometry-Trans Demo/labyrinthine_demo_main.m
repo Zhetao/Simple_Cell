@@ -102,7 +102,7 @@ model.physics('acpr').feature('pwr1').feature('ipf1').selection.set([1 2 3 5 7 9
 model.physics('acpr').create('ishb1', 'InteriorSoundHard', 1);
 model.physics('acpr').feature('ishb1').selection.set([4 6 8 10 12 14]);
 
-model.mesh('mesh1').autoMeshSize(2);
+model.mesh('mesh1').autoMeshSize(4);
 
 
 model.material('mat1').label('Air 1');
