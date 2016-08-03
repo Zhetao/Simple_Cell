@@ -157,7 +157,7 @@ function slider1_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 x=get(handles.slider1,'Value'); 
-set(handles.edit1,'String',num2str(x));
+set(handles.edit1,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 
 % x = [0.001 0.002];
@@ -187,7 +187,7 @@ function slider2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.slider2,'Value'); 
-set(handles.edit2,'String',num2str(x));
+set(handles.edit2,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
@@ -211,7 +211,7 @@ function slider3_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.slider3,'Value');
-set(handles.edit3,'String',num2str(x));
+set(handles.edit3,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
@@ -235,7 +235,7 @@ function slider4_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.slider4,'Value');
-set(handles.edit4,'String',num2str(x));
+set(handles.edit4,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
@@ -259,7 +259,7 @@ function slider5_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.slider5,'Value'); 
-set(handles.edit5,'String',num2str(x));
+set(handles.edit5,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
@@ -302,7 +302,7 @@ function edit1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit1,'String'); 
-set(handles.slider1,'Value',str2num(x));
+set(handles.slider1,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 
 % Hints: get(hObject,'String') returns contents of edit1 as text
@@ -328,7 +328,7 @@ function edit2_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit2,'String'); 
-set(handles.slider2,'Value',str2num(x));
+set(handles.slider2,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit2 as text
 %        str2double(get(hObject,'String')) returns contents of edit2 as a double
@@ -353,7 +353,7 @@ function edit3_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit3,'String'); 
-set(handles.slider3,'Value',str2num(x));
+set(handles.slider3,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit3 as text
 %        str2double(get(hObject,'String')) returns contents of edit3 as a double
@@ -378,7 +378,7 @@ function edit4_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit4,'String'); 
-set(handles.slider4,'Value',str2num(x));
+set(handles.slider4,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit4 as text
 %        str2double(get(hObject,'String')) returns contents of edit4 as a double
@@ -403,7 +403,7 @@ function edit5_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit5,'String'); 
-set(handles.slider5,'Value',str2num(x));
+set(handles.slider5,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit5 as text
 %        str2double(get(hObject,'String')) returns contents of edit5 as a double
@@ -428,7 +428,7 @@ function edit6_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.edit6,'String'); 
-set(handles.slider6,'Value',str2num(x));
+set(handles.slider6,'Value',str2num(x)/1000);
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'String') returns contents of edit6 as text
 %        str2double(get(hObject,'String')) returns contents of edit6 as a double
@@ -453,7 +453,7 @@ function slider6_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 x=get(handles.slider6,'Value'); display(x)
-set(handles.edit6,'String',num2str(x));
+set(handles.edit6,'String',num2str(x*1000,'%.2f'));
 show(hObject, eventdata, handles)
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
