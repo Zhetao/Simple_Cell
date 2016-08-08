@@ -2,7 +2,7 @@ function out = model
 %
 % temp.m
 %
-% Model exported on Aug 8 2016, 10:02 by COMSOL 5.2.0.220.
+% Model exported on Aug 8 2016, 10:12 by COMSOL 5.2.0.220.
 
 import com.comsol.model.*
 import com.comsol.model.util.*
@@ -116,20 +116,6 @@ model.physics('acpr').create('ishb1', 'InteriorSoundHard', 1);
 model.mesh('mesh1').autoMeshSize(1);
 
 model.result.table.create('tbl1', 'Table');
-model.result.table.create('tbl2', 'Table');
-model.result.table.create('tbl3', 'Table');
-model.result.table.create('tbl4', 'Table');
-
-model.view('view1').axis.set('abstractviewxscale', '1.1931818880839273E-4');
-model.view('view1').axis.set('ymin', '-0.02476542443037033');
-model.view('view1').axis.set('xmax', '0.05250000208616257');
-model.view('view1').axis.set('abstractviewyscale', '1.1931818880839273E-4');
-model.view('view1').axis.set('abstractviewbratio', '-0.46886366605758667');
-model.view('view1').axis.set('abstractviewtratio', '0.46886366605758667');
-model.view('view1').axis.set('abstractviewrratio', '0.025000013411045074');
-model.view('view1').axis.set('xmin', '-0.05250000208616257');
-model.view('view1').axis.set('abstractviewlratio', '-0.025000013411045074');
-model.view('view1').axis.set('ymax', '0.02476542443037033');
 
 model.material('mat1').label('Air 1');
 model.material('mat1').propertyGroup('def').set('density', '1.25*(1-0.005*i)');
@@ -138,11 +124,9 @@ model.material('mat1').propertyGroup('def').set('soundspeed', '343/(1-0.005*i)')
 model.physics('acpr').feature('pwr1').feature('ipf1').set('dir', {'1'; '0'; '0'});
 model.physics('acpr').feature('pwr1').feature('ipf1').set('pamp', '1');
 
-model.mesh('mesh1').run;
+%model.mesh('mesh1').run;
 
-model.result.table('tbl1').comments('abs(s21) ()');
-model.result.table('tbl3').comments('Global Evaluation 2 ()');
-model.result.table('tbl4').comments('Global Evaluation 2 (1)');
+model.result.table('tbl1').comments('Global Evaluation 1 ()');
 
 model.study.create('std1');
 model.study('std1').create('freq', 'Frequency');
@@ -165,36 +149,19 @@ model.sol('sol2').create('st1', 'StudyStep');
 model.sol('sol2').create('v1', 'Variables');
 model.sol('sol2').create('e1', 'Eigenvalue');
 
+model.result.dataset('dset1').set('solution', 'sol2');
+model.result.dataset.remove('dset2');
 model.result.numerical.create('gev1', 'EvalGlobal');
-model.result.numerical.create('gev2', 'EvalGlobal');
 model.result.numerical('gev1').set('probetag', 'none');
-model.result.numerical('gev2').set('data', 'dset2');
-model.result.numerical('gev2').set('probetag', 'none');
 model.result.create('pg1', 'PlotGroup2D');
 model.result.create('pg2', 'PlotGroup2D');
-model.result.create('pg3', 'PlotGroup1D');
-model.result.create('pg4', 'PlotGroup2D');
-model.result.create('pg5', 'PlotGroup2D');
 model.result('pg1').create('surf1', 'Surface');
 model.result('pg2').create('surf1', 'Surface');
-model.result('pg3').create('tblp1', 'Table');
-model.result('pg4').set('data', 'dset2');
-model.result('pg4').create('surf1', 'Surface');
-model.result('pg5').set('data', 'dset2');
-model.result('pg5').create('surf1', 'Surface');
 
 model.study('std1').feature('freq').set('plist', 'range(100,100,4000)');
 model.study('std2').feature('eig').set('shiftactive', true);
 model.study('std2').feature('eig').set('shift', '3000[Hz]');
 
-model.sol('sol1').attach('std1');
-model.sol('sol1').feature('s1').feature('aDef').set('complexfun', true);
-model.sol('sol1').feature('s1').feature('p1').set('punit', {'Hz'});
-model.sol('sol1').feature('s1').feature('p1').set('plistarr', {'range(100,100,4000)'});
-model.sol('sol1').feature('s1').feature('p1').set('pname', {'freq'});
-model.sol('sol1').feature('s1').feature('p1').set('preusesol', 'auto');
-model.sol('sol1').feature('s1').feature('p1').set('pcontinuationmode', 'no');
-model.sol('sol1').runAll;
 model.sol('sol2').attach('std2');
 model.sol('sol2').feature('e1').set('transform', 'eigenfrequency');
 model.sol('sol2').feature('e1').set('shift', '3000[Hz]');
@@ -202,32 +169,15 @@ model.sol('sol2').feature('e1').set('eigref', '100');
 model.sol('sol2').feature('e1').feature('aDef').set('complexfun', true);
 model.sol('sol2').runAll;
 
-model.result.numerical('gev1').label('abs(s21)');
-model.result.numerical('gev1').set('expr', 'abs(s21)');
+model.result.numerical('gev1').set('expr', '1');
 model.result.numerical('gev1').set('unit', '1');
-model.result.numerical('gev1').set('descr', 'abs(s21)');
+model.result.numerical('gev1').set('descr', '1');
 model.result.numerical('gev1').set('table', 'tbl1');
-model.result.numerical('gev2').set('expr', '1');
-model.result.numerical('gev2').set('unit', '1');
-model.result.numerical('gev2').set('descr', '1');
-model.result.numerical('gev2').set('table', 'tbl4');
 model.result.numerical('gev1').setResult;
-model.result.numerical('gev2').setResult;
 model.result('pg1').label('Acoustic Pressure (acpr)');
 model.result('pg2').label('Sound Pressure Level (acpr)');
 model.result('pg2').feature('surf1').set('descr', 'Sound pressure level');
 model.result('pg2').feature('surf1').set('unit', 'dB');
 model.result('pg2').feature('surf1').set('expr', 'acpr.Lp');
-model.result('pg3').set('data', 'none');
-model.result('pg3').set('xlabel', 'freq (Hz)');
-model.result('pg3').set('ylabel', 'abs(s21) (1)');
-model.result('pg3').set('ylabelactive', false);
-model.result('pg3').set('xlabelactive', false);
-model.result('pg4').label('Acoustic Pressure (acpr) 1');
-model.result('pg4').set('looplevel', {'2'});
-model.result('pg5').label('Sound Pressure Level (acpr) 1');
-model.result('pg5').feature('surf1').set('descr', 'Sound pressure level');
-model.result('pg5').feature('surf1').set('unit', 'dB');
-model.result('pg5').feature('surf1').set('expr', 'acpr.Lp');
 
 out = model;

@@ -9,10 +9,10 @@ figure('Visible','off')
 
 aNum = floor((aEnd-aStart)/aIntval)+1;
 display(aNum)
-bNum = floor((0.015-0.001)/bIntval);
+bNum = floor((0.0145-0.001)/bIntval);
 totNum = aNum*aNum*aNum*bNum*(bNum+1)/2;
 counter = 0;
-for b2 = 0.001:bIntval:0.015
+for b2 = 0.001:bIntval:0.0145
     for b1 = 0.001:bIntval:(b2-0.000001)
         for a3 = aStart:aIntval:aEnd
             clf 

@@ -127,5 +127,9 @@ model.study.create('std1');
 model.study('std1').create('freq', 'Frequency');
 model.study('std1').feature('freq').set('plist', 'range(100,100,4000)');
 
+model.study.create('std2');
+model.study('std2').create('eig', 'Eigenfrequency');
+model.study('std2').feature('eig').set('shiftactive', true);
+model.study('std2').feature('eig').set('shift', '3000[Hz]');
 
 out = model;
