@@ -85,6 +85,11 @@ model.variable('var1').set('p_i', 'exp(-1i*acpr.k*x)[Pa]');
 model.variable('var1').set('s11', 'intop1(acpr.p_t-p_i)/intop1(p_i)');
 model.variable('var1').set('s21', 'intop2(acpr.p_t)/intop1(p_i)');
 
+
+%model.variable('var1').set('s11p', 's11*exp(i*acpr.k*(W-2*b3))');
+%model.variable('var1').set('s21p', 's21*exp(i*acpr.k*(W-2*b3))');
+
+
 model.material.create('mat1', 'Common', 'comp1');
 
 model.cpl.create('intop1', 'Integration', 'geom1');

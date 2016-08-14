@@ -9,4 +9,10 @@ model.param.set('b3', num2str(b3));
 model.study('std1').run;
 tranList = mphglobal(model,{'abs(s21)'});
 phaseList = mphglobal(model,{'arg(intop2(p_i)/intop2(acpr.p_t))*180/pi'});
+%indexList = mphglobal(model,{'1/(2*pi*freq)/(2*b3)*acos((1-(s11*exp(i*acpr.k*(W-2*d3)))^2+(s21*exp(i*acpr.k*(W-2*d3)))^2)/2/s21*exp(i*acpr.k*(W-2*d3)))'});
+%idx = sum(indexList)/size(indexList,2);
+%kwl = 2*pi*freq1/343;
+%D = mphglobal(model,'2*b3');
+%nr = 1/kwl/D*(acos((1-(s11c)^2+(s21c)^2)/2/s21c)-2*pi*0);
+%*exp(i*acpr.k*(W-2*d3))
 

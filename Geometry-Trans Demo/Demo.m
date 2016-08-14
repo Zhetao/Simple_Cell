@@ -89,6 +89,7 @@ b3 = get(handles.slider6, 'Value');
 H = 0.025;
 [transList, phaseList] = Trans(model, a1,a2,a3,b1,b2,b3);
 
+%display(idx)
 axes(handles.axes1);
 plot(linspace(100,4000,40)',transList);
 xlim([0,4000])
@@ -119,24 +120,25 @@ ylim([0,360])
 %model.result('pg1').run;
 cla(handles.axes3);
 line(handles.axes3,[-0.05 0.05], [-0.0125 -0.0125]);
-hold(handles.axes3);
+hold(handles.axes3,'on');
 line(handles.axes3,[-0.05 0.05], [0.0125 0.0125]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[-0.05 -0.05], [-0.0125 0.0125]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[0.05 0.05], [-0.0125 0.0125]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[-b1 -b1], [H/2-a1 -H/2]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[-b2 -b2], [H/2 a2-H/2]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[-b3 -b3], [H/2-a3 -H/2]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[b1 b1], [-H/2+a1 H/2]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[b2 b2], [-H/2 -a2+H/2]);
-hold(handles.axes3);
+%hold(handles.axes3);
 line(handles.axes3,[b3 b3], [-H/2+a3 H/2]);
+hold(handles.axes3, 'off');
 axes(handles.axes3);
 xlim([-0.0175,0.0175])
 ylim([-0.017, 0.017])
