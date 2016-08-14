@@ -123,6 +123,9 @@ model.study.create('std1');
 model.study('std1').create('freq', 'Frequency');
 model.study('std1').feature('freq').set('plist', 'range(100,100,4000)');
 
+model.study.create('std2');
+model.study('std2').create('eig', 'Eigenfrequency');
+
 % model.result.create('pg1', 2);
 % model.result('pg1').create('surf1', 'Surface');
 % model.result('pg1').feature('surf1').set('expr', 'acpr.p_t');

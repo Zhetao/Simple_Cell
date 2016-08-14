@@ -87,7 +87,7 @@ b1 = get(handles.slider4, 'Value');
 b2 = get(handles.slider5, 'Value');
 b3 = get(handles.slider6, 'Value');
 H = 0.025;
-[transList, phaseList] = Trans(model, a1,a2,a3,b1,b2,b3);
+[transList, phaseList] = Trans_Demo(model, a1,a2,a3,b1,b2,b3);
 
 %display(idx)
 axes(handles.axes1);
