@@ -1,0 +1,5 @@
+p_i exp(-1i*acsl.k*x)[Pa]
+s11 intop1(acsl.p_t-p_i)/intop1(p_i)
+s11p s11*exp(i*acsl.k*(2*D))
+s21 intop2(acsl.p_t)/intop1(p_i)
+s21p s21*exp(i*acsl.k*(2*D))

@@ -1,12 +1,3 @@
-a1 0.00336
-a2 0.00359
-a3 0.00734
-a4 0.006
-a5 0.006
-b1 0.0014
-b2 0.00495
-b3 0.015
-b4 0.0084
-b5 0.0117
-H 0.025
-W 0.1
+p_i exp(-1i*acpr.k*x)[Pa]
+s11 intop1(acpr.p_t-p_i)/intop1(p_i)
+s21 intop2(acpr.p_t)/intop1(p_i)

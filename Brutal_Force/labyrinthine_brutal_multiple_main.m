@@ -17,15 +17,15 @@ for b2 = 0.001:bIntval:0.0145
         for a3 = aStart:aIntval:aEnd
             clf 
             hold on
-            figName = ['C:\Research\Simple_Cell\Brutal_Force\Test\' num2str(b1) '_'  num2str(b2) '_' num2str(a3) '.png'];
+            figName = ['C:\Research\Simple_Cell\Brutal_Force\Phase\' num2str(b1) '_'  num2str(b2) '_' num2str(a3) 'trans.png'];
             legNum = 1;
             for a2 = aStart:aIntval:aEnd
                for a1 = aStart:aIntval:aEnd
                     tic
-                    transList = Trans_brutal(meshSize, a1,a2,a3,b1,b2);
+                    [phaseList, transList] = Trans_brutal(meshSize, a1,a2,a3,b1,b2);
                     plot(linspace(100,4000,40)',transList)
                     legendInfo{legNum} = ['a1 = ' num2str(a1) ', a2 = ' num2str(a2)];
-                    ylim([0,1])
+                    %ylim([0,1])
                     counter = counter +1;
                     legNum = legNum +1;
                     display(['Finish ' num2str(counter) ' in ' num2str(totNum)])
