@@ -1,0 +1,12 @@
+a1 0.1[mm]
+a2 4.1[mm]
+a3 b3-b2-3/2*d
+b1 0.7[mm]
+b2 4.07[mm]
+b3 6.25[mm]
+H 12.5[mm]
+W 0.1
+d 0.5[mm]
+inc_W 100[mm]
+inc_H 26[mm]
+loss 0.005
